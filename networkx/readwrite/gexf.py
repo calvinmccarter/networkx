@@ -396,10 +396,15 @@ class GEXFWriter(GEXF):
                 self.alter_graph_mode_timeformat(end)
             except KeyError:
                 pass
-            source_id = make_str(G.nodes[u].get('id', u))
-            target_id = make_str(G.nodes[v].get('id', v))
+            source_id = G.nodes[u].get('id', u)
+            target_id = G.nodes[v].get('id', v)
+            # Makes node with negative id the target
+            if source_id < 0 and target_id > 0:
+                target_id, source_id = source_id, target_id
+            source_id_str = make_str(source_id)
+            target_id_str = make_str(target_id_str)
             edge_element = Element('edge',
-                                   source=source_id, target=target_id, **kw)
+                                   source=source_id_str, target=target_id_str, **kw)
             default = G.graph.get('edge_default', {})
             if self.version == '1.1':
                 edge_data = self.add_slices(edge_element, edge_data)
