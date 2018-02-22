@@ -402,7 +402,7 @@ class GEXFWriter(GEXF):
             if source_id < 0 and target_id > 0:
                 target_id, source_id = source_id, target_id
             source_id_str = make_str(source_id)
-            target_id_str = make_str(target_id_str)
+            target_id_str = make_str(target_id)
             edge_element = Element('edge',
                                    source=source_id_str, target=target_id_str, **kw)
             default = G.graph.get('edge_default', {})
